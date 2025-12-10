@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Michelle 's house🖤</title>
+<style>
+  :root{
+    --bg:#fff1f6; --pink:#ff9bd6; --pink-2:#ff8fc8; --accent:#ff4fa3; --card:#fff0fa;
+  }
+  *{box-sizing:border-box}
+  body{font-family:"Segoe UI", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif; margin:0; background:var(--bg); color:#333}
+  header{background:linear-gradient(90deg,var(--pink-2),#ffc0e6); color:white; padding:26px 16px; text-align:center; box-shadow:0 6px 20px rgba(255,130,180,0.12)}
+  header h1{margin:0;font-size:28px;letter-spacing:1px}
+  nav{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding:12px 8px;background:#fff; border-bottom:1px dashed rgba(255,180,210,0.6)}
+  nav a{color:var(--accent); text-decoration:none; font-weight:600; cursor:pointer;padding:6px 10px;border-radius:10px}
+  nav a:hover{background:linear-gradient(90deg,rgba(255,140,190,0.06),rgba(255,200,230,0.06))}
+  .wrap{max-width:1000px;margin:22px auto;padding:0 16px}
+  .page{display:none}
+  .page.active{display:block}
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .card{background:white;border-radius:16px;padding:18px;box-shadow:0 10px 30px rgba(255,150,200,0.08);border:1px solid rgba(255,200,230,0.6)}
+  .song-card,.travel-card{border-radius:12px;padding:12px;background:white;box-shadow:0 6px 18px rgba(0,0,0,0.03)}
+  .travel-img{width:100%;border-radius:10px;margin-top:8px}
+  .message-card{background:var(--card);border-radius:12px;padding:12px;margin-bottom:12px;box-shadow:0 6px 16px rgba(255,150,200,0.08)}
+  .message-header{display:flex;gap:10px;align-items:center;font-weight:700}
+  .avatar{font-size:20px}
+  .reply-bubble{background:#fff1f8;padding:8px;border-radius:10px;margin-top:8px}
+  .reply-input{display:flex;gap:8px;margin-top:10px}
+  textarea,input[type=text]{width:100%;padding:10px;border-radius:12px;border:1px solid #ffd7ee;background:#fff7fb}
+  button.small{padding:6px 10px;border-radius:10px}
+  .meta{display:flex;gap:8px;align-items:center;margin-top:8px}
+  footer{text-align:center;padding:26px 8px;color:#999}
+
+  /* Homepage styles */
+  .home-hero{padding:48px 24px;text-align:center;background:linear-gradient(180deg,#fff5fb,#fff8fc);border-radius:16px}
+  .hero-title{font-size:28px;margin:0;color:#ff3b8a;opacity:0;transform:translateY(12px);animation:fadeInUp .8s forwards .2s}
+  .hero-line{font-size:16px;color:#8c4b72;margin-top:12px;opacity:0;transform:translateY(12px);}
+  .hero-line.l2{animation:fadeInUp .8s forwards .5s}
+  .hero-line.l3{animation:fadeInUp .8s forwards .8s}
+
+  @keyframes fadeInUp{to{opacity:1;transform:translateY(0)}}
+
+  /* heart animation */
+  .hearts-layer{position:relative;height:140px;margin-top:18px;pointer-events:none;overflow:hidden}
+  .heart{position:absolute;bottom:8px;font-size:18px;opacity:0;transform:translateY(0) scale(0.8); animation:floatUp 4s linear forwards}
+  @keyframes floatUp{
+    0%{opacity:0; transform:translateY(0) scale(0.8)}
+    10%{opacity:1}
+    60%{opacity:1; transform:translateY(-80px) scale(1)}
+    100%{opacity:0; transform:translateY(-160px) scale(1.1)}
+  }
+
+  /* responsive */
+  @media (max-width:600px){ header h1{font-size:20px} nav{gap:6px} .home-hero{padding:28px} }
+  /* 飘动爱心 */
+  #floating-hearts{position:relative;height:60px;margin:10px 0;overflow:visible}
+  .heart{position:absolute;color:#ff77c8;font-size:20px;animation:floatUp 3s ease-in forwards;opacity:0.9}
+  @keyframes floatUp{0%{transform:translateY(20px) scale(.8);opacity:0}50%{opacity:1}100%{transform:translateY(-60px) scale(1.3);opacity:0}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Michelle 's house🖤</h1>
+</header>
+<nav>
+  <a id="nav-home">首页</a>
+  <a id="nav-fortune">答案之书</a>
+  <a id="nav-board">互动留言板</a>
+  <a id="nav-books">推荐小说</a>
+  <a id="nav-shops">甜品店/咖啡馆</a>
+  <a id="nav-songs">喜欢的歌曲</a>
+  <a id="nav-travel">旅行分享</a>
+  <a id="nav-contact">联系我</a>
+</nav>
+<div class="wrap">
+  <!-- HOME -->
+  <section id="page-home" class="page">
+    <div class="card" style="text-align:center; padding:32px 20px; position:relative; overflow:hidden;">
+      <h2 style="font-size:26px; margin-bottom:10px">欢迎来到 Michelle 的小屋 ˚ʚ♡ɞ˚</h2>
+      <p class="notice" style="font-size:15px; line-height:1.8; max-width:600px; margin:0 auto;">
+        这里是一个软软的、暖暖的小角落。<br>
+        每个人都可以在这里提问、分享、互相治愈、互相帮助。<br>
+        把烦恼放在这里，让温柔从世界各处向你流过来 ♡
+      </p>
+      <!-- heart container -->
+      <div id="floating-hearts"></div>
+    </div>
+  </section>
+
+  <!-- FORTUNE -->
+  <section id="page-fortune" class="page">
+    <div class="card">
+      <h2>答案之书 🔮</h2>
+      <p class="notice">轻点下方，让小书告诉你接下来会发生什么（仅供娱乐）</p>
+      <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
+        <button id="revealBtn">点击占卜 ✨</button>
+        <button id="reveal-again" class="small">再试一次</button>
+      </div>
+      <div id="fortuneResult" style="margin-top:18px;padding:14px;border-radius:12px;background:var(--card);display:none;font-weight:700;color:var(--accent)"></div>
+    </div>
+  </section>
+
+  <!-- MESSAGE BOARD -->
+  <section id="page-board" class="page">
+    <div class="card">
+      <h2>互动留言板 💬</h2>
+      <p class="notice">最近有什么问题呀？快来提问，让其他小伙伴来帮助你 💌</p>
+      <label style="display:block;margin-top:8px;font-weight:600">你的昵称（可自定义）：</label>
+      <input id="visitorNick" placeholder="想被称为什么？例如：小米" />
+      <label style="display:block;margin-top:8px;font-weight:600">问题：</label>
+      <textarea id="visitorMsg" rows="3" placeholder="请输入你的问题"></textarea>
+      <div style="margin-top:10px"><button id="addMsgBtn">提交问题</button></div>
+    </div>
+    <div style="margin-top:16px">
+      <h3>公开问题与回答</h3>
+      <div id="messageList"></div>
+    </div>
+  </section>
+
+  <!-- BOOKS -->
+  <section id="page-books" class="page">
+    <div class="card">
+      <h2>推荐小说 📚</h2>
+      <p class="notice">这是我的私藏书单，欢迎加书或筛选标签</p>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <input id="bookTitle" placeholder="书名" />
+        <input id="bookTags" placeholder="标签（用逗号分隔）" />
+        <button id="addBookBtn">添加</button>
+      </div>
+    </div>
+    <div style="margin-top:12px" id="booksList" class="card-grid"></div>
+  </section>
+
+  <!-- SHOPS -->
+  <section id="page-shops" class="page">
+    <div class="card">
+      <h2>甜品店 / 咖啡馆 打卡 🍰☕</h2>
+      <p class="notice">记录我想去/吃过的店，支持图片链接</p>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+        <input id="shopName" placeholder="店名" />
+        <input id="shopImg" placeholder="图片链接（可选）" />
+        <input id="shopDesc" placeholder="推荐甜品或短评" />
+        <button id="addShopBtn">添加</button>
+      </div>
+    </div>
+    <div style="margin-top:12px" id="shopsList" class="card-grid"></div>
+  </section>
+
+  <!-- SONGS -->
+  <section id="page-songs" class="page">
+    <div class="card">
+      <h2>喜欢的歌曲 🎵</h2>
+      <p class="notice">添加歌名、歌手、心情小短评</p>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+        <input id="songName" placeholder="歌名" />
+        <input id="songArtist" placeholder="歌手" />
+        <input id="songMood" placeholder="短评 / 心情" />
+        <button id="addSongBtn">添加</button>
+      </div>
+    </div>
+    <div style="margin-top:12px" id="songsList" class="card-grid"></div>
+  </section>
+
+  <!-- TRAVEL -->
+  <section id="page-travel" class="page">
+    <div class="card">
+      <h2>旅行分享 ✈️</h2>
+      <p class="notice">输入地点、感想与一张图片链接</p>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+        <input id="travelPlace" placeholder="地点" />
+        <input id="travelImg" placeholder="图片链接（可选）" />
+        <input id="travelNote" placeholder="分享文案" />
+        <button id="addTravelBtn">添加</button>
+      </div>
+    </div>
+    <div style="margin-top:12px" id="travelList" class="card-grid"></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="page-contact" class="page">
+    <div class="card">
+      <h2>联系我 📮</h2>
+      <p>想私聊或合作可以发邮件到： <a href="mailto:1349404920@qq.com">1349404920@qq.com</a></p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <p>© Michelle 's house · 2025</p>
+</footer>
+
+<script>
+window.addEventListener('DOMContentLoaded', ()=>{
+  // build pages map by id
+  const pages = {
+    home: document.getElementById('page-home'),
+    fortune: document.getElementById('page-fortune'),
+    board: document.getElementById('page-board'),
+    books: document.getElementById('page-books'),
+    shops: document.getElementById('page-shops'),
+    songs: document.getElementById('page-songs'),
+    travel: document.getElementById('page-travel'),
+    contact: document.getElementById('page-contact')
+  };
+
+  function showPage(key){
+    Object.values(pages).forEach(p=>p && p.classList.remove('active'));
+    if(pages[key]) pages[key].classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+    // start/stop hearts when on home
+    if(key==='home') startHearts(); else stopHearts();
+  }
+
+  // bind nav safely
+  document.getElementById('nav-home')?.addEventListener('click', ()=>showPage('home'));
+  document.getElementById('nav-fortune')?.addEventListener('click', ()=>showPage('fortune'));
+  document.getElementById('nav-board')?.addEventListener('click', ()=>showPage('board'));
+  document.getElementById('nav-books')?.addEventListener('click', ()=>showPage('books'));
+  document.getElementById('nav-shops')?.addEventListener('click', ()=>showPage('shops'));
+  document.getElementById('nav-songs')?.addEventListener('click', ()=>showPage('songs'));
+  document.getElementById('nav-travel')?.addEventListener('click', ()=>showPage('travel'));
+  document.getElementById('nav-contact')?.addEventListener('click', ()=>showPage('contact'));
+  document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click', e=>{ showPage(e.currentTarget.dataset.goto); }));
+
+  // --- FORTUNE ---
+  const fortunes = [
+    "你的温柔会被世界悄悄记住 ✨",
+    "某个期待已久的事情正在靠近你 💗",
+    "你会收到一个让你微笑的讯息 📩",
+    "好运已经在你身后跟着跑啦 🍀",
+    "你正在成为更好的自己，请继续 🌈",
+    "有人在偷偷期待你的出现 🐇",
+    "宇宙对你很温柔，今天也是 💖",
+    "你会遇见一个让你心安的人 ☁️",
+    "未来几天会有小惊喜发生 ⭐",
+    "你会越来越接近你想要的生活 🧸",
+    "坚持一下，你想要的正在路上 ✨",
+    "事情会比你想象的顺利很多 🌙",
+    "一次美好的机遇正要来到你身边 💫",
+    "你将被好消息包围，真的！🎀",
+    "你的努力正在被看到，请继续发光 🌟",
+    "你正在吸引温柔又幸运的事物 🍓",
+    "一个新的开始正在为你打开大门 🔮",
+    "你会收到意料之外的关心与喜欢 💌",
+    "放轻松，未来对你超友好 🫶",
+    "你正在进入一个越来越幸福的小阶段 🌸"
+  ];
+  const revealBtn = document.getElementById('revealBtn');
+  const revealAgain = document.getElementById('reveal-again');
+  const fortuneResult = document.getElementById('fortuneResult');
+  function reveal(){ if(!fortuneResult) return; fortuneResult.style.display='block'; const t = fortunes[Math.floor(Math.random()*fortunes.length)]; fortuneResult.innerText = t; fortuneResult.animate([{transform:'scale(.8)',opacity:0},{transform:'scale(1.03)',opacity:1},{transform:'scale(1)',opacity:1}],{duration:450,easing:'ease-out'}); }
+  if(revealBtn) revealBtn.addEventListener('click', reveal);
+  if(revealAgain) revealAgain.addEventListener('click', reveal);
+
+  // --- Message board ---
+  const avatars = ['🐰','🐻','🐱','🐼','🐨','🦊'];
+  let messages = JSON.parse(localStorage.getItem('messages_v2')||'[]');
+  messages.forEach(m=>{ if(!Array.isArray(m.reply)) m.reply=[]; if(typeof m.likes!=='number') m.likes=0; });
+  function saveMessages(){ localStorage.setItem('messages_v2', JSON.stringify(messages)); }
+  function escapeHtml(s){ return String(s).replace(/[&<>"]|'/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function renderMessages(){ const list = document.getElementById('messageList'); if(!list) return; list.innerHTML=''; messages.forEach((m)=>{ if(!Array.isArray(m.reply)) m.reply=[]; const card = document.createElement('div'); card.className='message-card'; const h = document.createElement('div'); h.className='message-header'; h.innerHTML = `<span class="avatar">${m.avatar}</span> <span style="margin-left:6px">${escapeHtml(m.nickname)}</span>`; card.appendChild(h); const p = document.createElement('p'); p.innerText = m.visitor; card.appendChild(p); m.reply.forEach((r,i)=>{ const rp = document.createElement('div'); rp.className='reply-bubble'; rp.innerText = `💬 匿名 mm${i+1}：${r}`; card.appendChild(rp); }); const replyDiv = document.createElement('div'); replyDiv.className='reply-input'; const input = document.createElement('input'); input.type='text'; input.placeholder='匿名回复（mm）'; const btn = document.createElement('button'); btn.className='small'; btn.innerText='发送'; btn.addEventListener('click', ()=>{ const v = input.value.trim(); if(!v) return; m.reply.push(v); saveMessages(); renderMessages(); }); replyDiv.appendChild(input); replyDiv.appendChild(btn); card.appendChild(replyDiv); const meta = document.createElement('div'); meta.className='meta'; const likeBtn = document.createElement('button'); likeBtn.className='small'; likeBtn.innerText = `👍 ${m.likes}`; likeBtn.addEventListener('click', ()=>{ m.likes = (m.likes||0)+1; saveMessages(); renderMessages(); }); meta.appendChild(likeBtn); card.appendChild(meta); list.appendChild(card); }); }
+  document.getElementById('addMsgBtn')?.addEventListener('click', ()=>{ const text = document.getElementById('visitorMsg').value.trim(); let nick = document.getElementById('visitorNick').value.trim(); if(!nick) nick = `游客${messages.length+1}`; if(!text) return alert('请输入问题后提交'); const avatar = avatars[messages.length % avatars.length]; messages.push({ id: Date.now(), nickname: nick, avatar, visitor: text, reply: [], likes: 0 }); saveMessages(); document.getElementById('visitorMsg').value=''; document.getElementById('visitorNick').value=''; renderMessages(); });
+  renderMessages();
+
+  // --- Books ---
+  let books = JSON.parse(localStorage.getItem('books_v1')||'[]');
+  function saveBooks(){ localStorage.setItem('books_v1', JSON.stringify(books)); }
+  function renderBooks(){ const out = document.getElementById('booksList'); if(!out) return; out.innerHTML=''; books.forEach(b=>{ const c = document.createElement('div'); c.className='card'; c.innerHTML = `<h4>${escapeHtml(b.title)}</h4><p style="color:#666">${escapeHtml(b.tags||'')}</p><p style="margin-top:8px;color:#444">${escapeHtml(b.note||'')}</p>`; out.appendChild(c); }); }
+  document.getElementById('addBookBtn')?.addEventListener('click', ()=>{ const t = document.getElementById('bookTitle').value.trim(); const tags = document.getElementById('bookTags').value.trim(); if(!t) return alert('请填写书名'); books.push({ id:Date.now(), title:t, tags, note:'' }); saveBooks(); document.getElementById('bookTitle').value=''; document.getElementById('bookTags').value=''; renderBooks(); });
+  if(books.length===0){ books = [ {id:1,title:'《解忧杂货店》',tags:'温暖,治愈',note:'抚慰人心的小故事'}, {id:2,title:'《小王子》',tags:'童话,寓言',note:'适合在安静的下午读'} ]; saveBooks(); }
+  renderBooks();
+
+  // --- Shops ---
+  let shops = JSON.parse(localStorage.getItem('shops_v1')||'[]');
+  function saveShops(){ localStorage.setItem('shops_v1', JSON.stringify(shops)); }
+  function renderShops(){ const out = document.getElementById('shopsList'); if(!out) return; out.innerHTML=''; shops.forEach(s=>{ const c = document.createElement('div'); c.className='card'; c.innerHTML = `<h4>${escapeHtml(s.name)}</h4><p style="color:#666">${escapeHtml(s.desc||'推荐甜品：无')}</p>${s.img?`<img src="${escapeHtml(s.img)}" style="width:100%;border-radius:8px;margin-top:8px"/>`:''}`; out.appendChild(c); }); }
+  document.getElementById('addShopBtn')?.addEventListener('click', ()=>{ const name = document.getElementById('shopName').value.trim(); const img = document.getElementById('shopImg').value.trim(); const desc = document.getElementById('shopDesc').value.trim(); if(!name) return alert('请填写店名'); shops.push({ id:Date.now(), name, desc, img }); saveShops(); document.getElementById('shopName').value=''; document.getElementById('shopImg').value=''; document.getElementById('shopDesc').value=''; renderShops(); });
+  if(shops.length===0){ shops = [ {id:1,name:'甜甜圈小铺',desc:'招牌草莓甜甜圈',img:''}, {id:2,name:'小熊蛋糕屋',desc:'推荐抹茶千层',img:''} ]; saveShops(); }
+  renderShops();
+
+  // --- Songs ---
+  let songs = JSON.parse(localStorage.getItem('songs_v1')||'[]');
+  function saveSongs(){ localStorage.setItem('songs_v1', JSON.stringify(songs)); }
+  function renderSongs(){ const out = document.getElementById('songsList'); if(!out) return; out.innerHTML=''; songs.forEach(s=>{ const c = document.createElement('div'); c.className='song-card'; c.innerHTML = `<h4>${escapeHtml(s.name)}</h4><p style="color:#666">${escapeHtml(s.artist||'')}${s.mood?` • ${escapeHtml(s.mood)}`:''}</p>`; out.appendChild(c); }); }
+  document.getElementById('addSongBtn')?.addEventListener('click', ()=>{ const name = document.getElementById('songName').value.trim(); const artist = document.getElementById('songArtist').value.trim(); const mood = document.getElementById('songMood').value.trim(); if(!name) return alert('请填写歌名'); songs.push({ id:Date.now(), name, artist, mood }); saveSongs(); document.getElementById('songName').value=''; document.getElementById('songArtist').value=''; document.getElementById('songMood').value=''; renderSongs(); });
+  if(songs.length===0){ songs = [ {id:1,name:'夜航星',artist:'未知',mood:'适合夜读'}, {id:2,name:'轻风',artist:'小曲',mood:'午后慵懒'} ]; saveSongs(); }
+  renderSongs();
+
+  // --- Travel ---
+  let travels = JSON.parse(localStorage.getItem('travels_v1')||'[]');
+  function saveTravels(){ localStorage.setItem('travels_v1', JSON.stringify(travels)); }
+  function renderTravels(){ const out = document.getElementById('travelList'); if(!out) return; out.innerHTML=''; travels.forEach(t=>{ const c = document.createElement('div'); c.className='travel-card'; c.innerHTML = `<h4>${escapeHtml(t.place)}</h4><p style="color:#666">${escapeHtml(t.note||'')}</p>${t.img?`<img src="${escapeHtml(t.img)}" class="travel-img"/>`:''}`; out.appendChild(c); }); }
+  document.getElementById('addTravelBtn')?.addEventListener('click', ()=>{ const place = document.getElementById('travelPlace').value.trim(); const img = document.getElementById('travelImg').value.trim(); const note = document.getElementById('travelNote').value.trim(); if(!place) return alert('请填写地点'); travels.push({ id:Date.now(), place, img, note }); saveTravels(); document.getElementById('travelPlace').value=''; document.getElementById('travelImg').value=''; document.getElementById('travelNote').value=''; renderTravels(); });
+  if(travels.length===0){ travels = [ {id:1,place:'京都，清水寺',img:'',note:'樱花季好美'}, {id:2,place:'东京巷弄咖啡',img:'',note:'憩息的午后'} ]; saveTravels(); }
+  renderTravels();
+
+  // HEARTS: gentle floating hearts on home page
+  const heartsLayer = document.getElementById('hearts-layer');
+  let heartsInterval = null;
+  function createHeart(){
+    if(!heartsLayer) return;
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = `${Math.random()*80 + 5}%`;
+    heart.style.fontSize = `${12 + Math.random()*14}px`;
+    heart.style.animationDuration = `${3 + Math.random()*3}s`;
+    heart.style.opacity = `${0.9 - Math.random()*0.6}`;
+    heart.innerText = '💗';
+    heartsLayer.appendChild(heart);
+    // remove after animation
+    setTimeout(()=>{ heart.remove(); }, 4500);
+  }
+  function startHearts(){ if(heartsInterval) return; createHeart(); heartsInterval = setInterval(createHeart, 700); }
+  function stopHearts(){ if(!heartsInterval) return; clearInterval(heartsInterval); heartsInterval = null; const nodes = heartsLayer?.querySelectorAll('.heart')||[]; nodes.forEach(n=>n.remove()); }
+
+  // show home by default
+  showPage('home');
+
+  // 飘动爱心脚本
+  function createHeart(){
+    const box = document.getElementById('floating-hearts');
+    if(!box) return;
+    const h = document.createElement('div');
+    h.className='heart';
+    h.innerText = ['💗','💖','💕','💞'][Math.floor(Math.random()*4)];
+    h.style.left = (Math.random()*80+10)+"%";
+    box.appendChild(h);
+    setTimeout(()=>h.remove(),3000);
+  }
+  setInterval(createHeart, 1200);
+
+});
+</script>
+</body>
+</html>
